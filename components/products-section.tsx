@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-const products = [const products = [
+const products = [
   { title: "Beige Floral Bedsheet", image: "/images/bedsheet-beige-floral.jpg", count: "New Arrival" },
   { title: "Blue Floral Bedsheet", image: "/images/bedsheet-blue-floral.jpg", count: "Best Seller" },
   { title: "Brown Floral Bedsheet", image: "/images/bedsheet-brown-floral.jpg", count: "In Stock" },
@@ -19,49 +19,38 @@ const products = [const products = [
   { title: "Premium Cotton Nighties", image: "/images/cotton-nighties.jpg", count: "200+ Designs" },
   { title: "Designer Kaftans", image: "/images/kaftans.jpg", count: "New Collection" }
 ];
-];
 
 export function ProductsSection() {
   return (
     <section id="products" className="py-20 md:py-32 bg-secondary/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
-            Our Collection
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Wholesale Bedsheets & Nighties
-          </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Premium quality cotton nighties and bedsheet sets at wholesale rates. Best collection for your retail store.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {products.map((product) => (
-            <Link
-              key={product.title}
-              href="#contact"
-              className="group relative bg-card rounded-2xl overflow-hidden border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-xl"
-            >
-              <div className="aspect-[4/5] relative overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product, index) => (
+            <div key={index} className="group relative overflow-hidden rounded-2xl bg-background border transition-all hover:shadow-xl">
+              <div className="aspect-[4/5] overflow-hidden">
                 <Image
-                  src={product.image || "/placeholder.svg"}
+                  src={product.image}
                   alt={product.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  width={400}
+                  height={500}
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-primary-foreground">
-                  <p className="text-sm opacity-80 mb-1">{product.count}</p>
-                  <h3 className="font-serif text-2xl font-bold mb-2">{product.title}</h3>
-                  <p className="text-sm opacity-90 leading-relaxed">{product.description}</p>
+              </div>
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-serif text-xl font-semibold">{product.title}</h3>
+                  <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
+                    {product.count}
+                  </span>
                 </div>
+                <Link
+                  href="#contact"
+                  className="mt-4 flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Inquiry Now <ArrowUpRight className="ml-1 h-4 w-4" />
+                </Link>
               </div>
-              <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-card/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <ArrowUpRight className="h-5 w-5 text-foreground" />
-              </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
