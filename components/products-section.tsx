@@ -2,19 +2,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-const products = [
-  {
-    title: "Cotton Nighties",
-    description: "Comfortable and breathable cotton nighties in various prints and sizes. Perfect for summer nights.",
-    image: "/images/cotton-nighties.jpg",
-    count: "200+ Designs",
-  },
-  {
-    title: "Bedsheet Sets",
-    description: "High-quality cotton bedsheet sets with pillow covers. Multiple thread counts available.",
-    image: "/images/bedsheets.jpg",
-    count: "150+ Designs",
-  },
+const products = [const products = [
+  { title: "Beige Floral Bedsheet", image: "/images/bedsheet-beige-floral.jpg", count: "New Arrival" },
+  { title: "Blue Floral Bedsheet", image: "/images/bedsheet-blue-floral.jpg", count: "Best Seller" },
+  { title: "Brown Floral Bedsheet", image: "/images/bedsheet-brown-floral.jpg", count: "In Stock" },
+  { title: "Colorful Floral Bedsheet", image: "/images/bedsheet-colorful-floral.jpg", count: "Trending" },
+  { title: "Classic Floral", image: "/images/bedsheet-floral.jpg", count: "In Stock" },
+  { title: "Grey Floral Bedsheet", image: "/images/bedsheet-grey-floral.jpg", count: "New" },
+  { title: "Grey Leaf Design", image: "/images/bedsheet-grey-leaf.jpg", count: "In Stock" },
+  { title: "Grey Set Bedsheet", image: "/images/bedsheet-grey-set.jpg", count: "Premium" },
+  { title: "Light Grey Floral", image: "/images/bedsheet-light-grey.jpg", count: "In Stock" },
+  { title: "Paisley Print Bedsheet", image: "/images/bedsheet-paisley.jpg", count: "New" },
+  { title: "Pink Floral Bedsheet", image: "/images/bedsheet-pink-floral.jpg", count: "Trending" },
+  { title: "Pink Leaf Bedsheet", image: "/images/bedsheet-pink-leaf.jpg", count: "In Stock" },
+  { title: "Taupe Floral Bedsheet", image: "/images/bedsheet-taupe-floral.jpg", count: "Premium" },
+  { title: "Premium Cotton Nighties", image: "/images/cotton-nighties.jpg", count: "200+ Designs" },
+  { title: "Designer Kaftans", image: "/images/kaftans.jpg", count: "New Collection" }
+];
 ];
 
 export function ProductsSection() {
