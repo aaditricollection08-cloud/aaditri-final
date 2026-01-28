@@ -47,7 +47,7 @@ export function Header() {
 
           <div className="hidden md:flex items-center gap-4">
             <Button asChild>
-              <a href="tel:+919876543210" className="flex items-center gap-2">
+              <a href="tel:+917278104982" className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
                 <span>Call Now</span>
               </a>
@@ -97,7 +97,7 @@ export function Header() {
               Contact
             </Link>
             <Button asChild className="w-full mt-2">
-              <a href="tel:+919876543210" className="flex items-center justify-center gap-2">
+              <a href="tel:+917278104982" className="flex items-center justify-center gap-2">
                 <Phone className="h-4 w-4" />
                 <span>Call Now</span>
               </a>
