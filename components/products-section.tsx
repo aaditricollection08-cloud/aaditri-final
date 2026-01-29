@@ -1,18 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-
-/* ===== BEDSHEETS (12 PCS) ===== */
-const bedsheets = [
-  "bedsheet-beige-floral.jpg",
-  "bedsheet-blue-floral.jpg",
-  "bedsheet-brown-floral.jpg",
-  "bedsheet-colorful-floral.jpg",
-  "bedsheet-floral.jpg",
-  "bedsheet-grey-floral.jpg",
-  "bedsheet-grey-leaf.jpg",
-  "bedsheet-grey-set.jpg",
-  "bedsheet-light-grey.jpg",
-  "bedsheet-paisley.jpg",
-  "bedsheet-pink-floral.jpg",
-  "bedsheet-pi
+<p className="text-xs text-gray-500 mt-1">
+  Bedsheet Size: 6×7 ft (Queen)
+</p>
+<p className="text-xs text-gray-500">
+  Set Includes: 1 Bedsheet + 2 Pillow Covers + 1 Bolster Cover
+</p>
+<p className="text-xs text-gray-500">
+  Material: Glace Cotton
+</p>
