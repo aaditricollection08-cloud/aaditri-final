@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 
-// আপনার সঠিক WhatsApp নম্বর
+// আপনার মেইন WhatsApp নম্বর
 const WHATSAPP_NUMBER = "917278104982"; 
 
 const bedsheets = [
@@ -37,15 +37,15 @@ export function ProductsSection() {
     <section id="products" className="py-20 bg-secondary/50">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-serif font-bold mb-4 text-center">Premium Collection</h2>
-        <p className="text-center text-muted-foreground mb-12">Bedsheets starting from ₹250 & Nighties from ₹160</p>
+        <p className="text-center text-muted-foreground mb-12 italic">Bedsheets starting from ₹250 & Nighties from ₹160</p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {bedsheets.map((p) => {
-            const message = encodeURIComponent(`Hello Aaditri Collection! I want to order:\nProduct: ${p.name}\nPrice: ₹${p.price}`);
+            const message = encodeURIComponent(`Hello Aaditri Collection! I want to order:\n\nProduct: ${p.name}\nPrice: ₹${p.price}\nSize: ${p.size}`);
             const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
 
             return (
-              <div key={p.id} className="bg-background rounded-2xl overflow-hidden border shadow-sm p-4">
+              <div key={p.id} className="bg-background rounded-2xl overflow-hidden border shadow-sm p-4 hover:shadow-lg transition-shadow">
                 <div className="aspect-[4/5] relative mb-4">
                   <Image 
                     src={p.img} 
@@ -55,15 +55,15 @@ export function ProductsSection() {
                     unoptimized={true} 
                   />
                 </div>
-                <h3 className="font-bold text-lg mb-1">{p.name}</h3>
-                <p className="text-accent font-bold text-xl mb-4">₹{p.price}</p>
+                <h3 className="font-bold text-lg mb-1 h-12 overflow-hidden">{p.name}</h3>
+                <p className="text-[#e11d48] font-bold text-xl mb-4">₹{p.price}</p>
                 <a 
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-xl font-bold"
+                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-xl font-bold hover:bg-[#128C7E] transition-colors"
                 >
-                  <ShoppingCart size={18} /> Order on WhatsApp
+                  <ShoppingCart size={18} /> WhatsApp Order
                 </a>
               </div>
             );
