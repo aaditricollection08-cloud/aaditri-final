@@ -1,40 +1,73 @@
-import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import { ShoppingCart } from "lucide-react";
 
-export function ContactSection() {
+// আপনার সঠিক WhatsApp নম্বর
+const WHATSAPP_NUMBER = "917278104982"; 
+
+const bedsheets = [
+  { id: 1, name: "Spring Meadow Tulip", img: "/bedsheet-1.jpg", price: "250" },
+  { id: 2, name: "Midnight Galaxy Blue", img: "/bedsheet-2.jpg", price: "250" },
+  { id: 3, name: "Rose Garden Delight", img: "/bedsheet-3.jpg", price: "250" },
+  { id: 4, name: "Golden Oasis Pattern", img: "/bedsheet-4.jpg", price: "250" },
+  { id: 5, name: "Lavender Mist Floral", img: "/bedsheet-5.jpg", price: "250" },
+  { id: 6, name: "Royal Emerald Classic", img: "/bedsheet-6.jpg", price: "250" },
+  { id: 7, name: "Oceanic Wave Texture", img: "/bedsheet-7.jpg", price: "250" },
+  { id: 8, name: "Crimson Velvet Bloom", img: "/bedsheet-8.jpg", price: "250" },
+  { id: 9, name: "Ivory Pearl Elegance", img: "/bedsheet-9.jpg", price: "250" },
+  { id: 10, name: "Sunset Glow Abstract", img: "/bedsheet-10.jpeg", price: "250" },
+  { id: 11, name: "Turquoise Bliss", img: "/bedsheet-11.jpeg", price: "250" },
+  { id: 12, name: "Peony Paradise", img: "/bedsheet-12.jpeg", price: "250" },
+  { id: 13, name: "Sapphire Night Star", img: "/bedsheet-13.jpeg", price: "250" },
+  { id: 14, name: "Autumn Breeze Leaf", img: "/bedsheet-14.jpeg", price: "250" },
+  { id: 15, name: "Marble Silk Touch", img: "/bedsheet-15.jpeg", price: "250" },
+  { id: 16, name: "Ruby Romance Red", img: "/bedsheet-16.jpeg", price: "250" },
+  { id: 17, name: "Pastel Petal Dream", img: "/bedsheet-17.jpeg", price: "250" },
+  { id: 18, name: "Indigo Ink Modern", img: "/bedsheet-18.jpeg", price: "250" },
+  { id: 19, name: "Diamond Sparkle White", img: "/bedsheet-19.jpeg", price: "250" },
+  { id: 20, name: "Vintage Heritage Gold", img: "/bedsheet-20.jpeg", price: "250" },
+  { id: 21, name: "Urban Chic Charcoal", img: "/bedsheet-21.jpeg", price: "250" }
+].map(p => ({
+  ...p,
+  size: "90×108 inch",
+  material: "Glace Cotton"
+}));
+
+export function ProductsSection() {
   return (
-    <section id="contact" className="py-24 bg-background">
+    <section id="products" className="py-20 bg-secondary/50">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <h2 className="text-4xl font-serif font-bold mb-6 text-foreground">Contact Us</h2>
-            <p className="text-lg text-muted-foreground mb-10 font-light leading-relaxed">
-              যেকোনো অর্ডার বা তথ্যের জন্য আমাদের সাথে যোগাযোগ করুন। আমরা আপনার সেবায় সর্বদা প্রস্তুত।
-            </p>
-            
-            <div className="space-y-8">
-              <div className="flex items-start gap-6 group">
-                <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                  <Phone size={24} />
+        <h2 className="text-4xl font-serif font-bold mb-4 text-center">Premium Collection</h2>
+        <p className="text-center text-muted-foreground mb-12">Bedsheets starting from ₹250 & Nighties from ₹160</p>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {bedsheets.map((p) => {
+            const message = encodeURIComponent(`Hello Aaditri Collection! I want to order:\nProduct: ${p.name}\nPrice: ₹${p.price}`);
+            const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+
+            return (
+              <div key={p.id} className="bg-background rounded-2xl overflow-hidden border shadow-sm p-4">
+                <div className="aspect-[4/5] relative mb-4">
+                  <Image 
+                    src={p.img} 
+                    alt={p.name} 
+                    fill 
+                    className="object-cover rounded-xl" 
+                    unoptimized={true} 
+                  />
                 </div>
-                <div>
-                  <p className="font-bold text-lg text-foreground mb-1">Call/WhatsApp</p>
-                  <p className="text-muted-foreground">+91 7278104982</p>
-                  <p className="text-muted-foreground">+91 8777840679</p>
-                </div>
+                <h3 className="font-bold text-lg mb-1">{p.name}</h3>
+                <p className="text-accent font-bold text-xl mb-4">₹{p.price}</p>
+                <a 
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-xl font-bold"
+                >
+                  <ShoppingCart size={18} /> Order on WhatsApp
+                </a>
               </div>
-            </div>
-          </div>
-          
-          <div className="bg-secondary/30 p-10 rounded-[2rem] border border-accent/10">
-            <h3 className="text-2xl font-bold mb-6 text-foreground">Send us a Message</h3>
-            <p className="text-muted-foreground mb-8">সরাসরি কথা বলতে নিচের বাটনে ক্লিক করুন:</p>
-            <a 
-              href="https://wa.me/917278104982" 
-              className="w-full flex items-center justify-center gap-3 bg-[#25D366] text-white py-4 rounded-2xl font-bold text-lg hover:bg-[#128C7E] transition-all shadow-lg"
-            >
-              <MessageCircle size={24} /> Chat on WhatsApp
-            </a>
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
