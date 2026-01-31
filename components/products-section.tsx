@@ -48,7 +48,3 @@ export function ProductsSection() {
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
