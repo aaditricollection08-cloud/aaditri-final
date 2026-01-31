@@ -4,35 +4,40 @@ import { Phone, Mail, Send } from "lucide-react";
 
 export function ContactSection() {
   const WHATSAPP_NUMBER = "917278104982";
-  const MY_EMAIL = "aaditricollection08@gmail.com";
+  const MY_EMAIL = "aaditricollection08@gmail.com"; 
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
     
-    const name = (document.getElementById('full-name') as HTMLInputElement).value;
-    const phone = (document.getElementById('phone-number') as HTMLInputElement).value;
-    const city = (document.getElementById('city-loc') as HTMLInputElement).value;
-    const msg = (document.getElementById('msg-text') as HTMLTextAreaElement).value;
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("customer_email"), // কাস্টমারের ইমেইল আইডি
+      phone: formData.get("phone"),
+      city: formData.get("city"),
+      message: formData.get("message"),
+    };
 
-    // ১. হোয়াটসঅ্যাপে মেসেজ পাঠানো
-    const body = `*New Inquiry*%0AName: ${name}%0APhone: ${phone}%0ACity: ${city}%0AMessage: ${msg}`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${body}`, "_blank");
+    // ১. হোয়াটসঅ্যাপে মেসেজ পাঠানোর উইন্ডো খোলা
+    const whatsappBody = `New Inquiry from Web:\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nCity: ${data.city}\nMessage: ${data.message}`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappBody)}`, "_blank");
 
-    // ২. সরাসরি ইমেইলে তথ্য পাঠানো (Formspree ব্যবহার করে)
-    const response = await fetch("https://formspree.io/f/xvgzlowz", {
-      method: "POST",
-      body: JSON.stringify({ name, phone, city, message: msg, _replyto: MY_EMAIL }),
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    if (response.ok) {
-      alert("Inquiry Sent Successfully to WhatsApp & Email!");
+    // ২. সরাসরি আপনার ইমেইলে তথ্য পাঠানো (অটোমেটিক)
+    try {
+      await fetch("https://formspree.io/f/xvgzlowz", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+      });
+      alert("ধন্যবাদ! আপনার ইনকোয়ারি সফলভাবে পাঠানো হয়েছে।");
+    } catch (error) {
+      console.log("Error sending email");
     }
   };
 
   return (
     <section id="contact" className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 text-left">
         <div>
           <h2 className="text-3xl font-bold mb-6 italic">Contact Us</h2>
           <div className="space-y-6">
@@ -50,13 +55,16 @@ export function ContactSection() {
         <div className="bg-secondary/30 p-8 rounded-3xl border shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input id="full-name" type="text" name="name" placeholder="Full Name" className="p-3 rounded-xl border bg-background w-full" required />
-              <input id="phone-number" type="text" name="phone" placeholder="Phone Number" className="p-3 rounded-xl border bg-background w-full" required />
+              <input name="name" type="text" placeholder="Full Name" className="p-3 rounded-xl border bg-background w-full" required />
+              <input name="customer_email" type="email" placeholder="Your Email Address" className="p-3 rounded-xl border bg-background w-full" required />
             </div>
-            <input id="city-loc" type="text" name="city" placeholder="City / Location" className="w-full p-3 rounded-xl border bg-background" />
-            <textarea id="msg-text" name="message" placeholder="Tell us what you need..." className="w-full p-3 rounded-xl border bg-background" rows={4}></textarea>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input name="phone" type="text" placeholder="Phone Number" className="p-3 rounded-xl border bg-background w-full" required />
+              <input name="city" type="text" placeholder="City / Location" className="p-3 rounded-xl border bg-background w-full" required />
+            </div>
+            <textarea name="message" placeholder="আপনার প্রয়োজনীয় পণ্য বা প্রশ্নটি এখানে লিখুন..." className="w-full p-3 rounded-xl border bg-background" rows={4} required></textarea>
             
-            <button type="submit" className="w-full bg-[#800000] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+            <button type="submit" className="w-full bg-[#800000] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#600000] transition-all">
               <Send size={20} /> Send Inquiry Now
             </button>
           </form>
