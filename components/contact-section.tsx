@@ -1,182 +1,113 @@
 "use client";
 
-import React from "react"
-
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Visit Us",
-    details: ["17, Das Nagar Colony", "Jodhpur Park, Kolkata - 700045", "West Bengal, India"],
-  },
-  {
-    icon: Phone,
-    title: "Call / WhatsApp",
-    details: ["+91 72781 04982", "+91 87778 40679"],
-  },
-  {
-    icon: Mail,
-    title: "Email Us",
-    details: ["aaditri.collection08@gmail.com"],
-  },
-  {
-    icon: Clock,
-    title: "Business Hours",
-    details: ["Mon - Sat: 10:00 AM - 7:00 PM", "Sunday: Closed"],
-  },
-];
-
-const gstn = "19GQUPS2040Q1ZQ";
+import { Phone, Mail, MessageCircle, Send } from "lucide-react";
 
 export function ContactSection() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    business: "",
+    phone: "",
+    email: "",
+    city: "",
+    message: ""
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const WHATSAPP_NUMBER = "917278104982";
+  const MY_EMAIL = "aaditricollection0@gmail.com"; // আপনার ইমেইল এখানে দিন
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    
+    // WhatsApp মেসেজ ফরম্যাট করা
+    const text = `*New Inquiry - Aaditri Collection*\n\n` +
+                 `*Name:* ${formData.name}\n` +
+                 `*Business:* ${formData.business}\n` +
+                 `*Phone:* ${formData.phone}\n` +
+                 `*Email:* ${formData.email}\n` +
+                 `*City:* ${formData.city}\n` +
+                 `*Message:* ${formData.message}`;
+    
+    const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(whatsappLink, "_blank");
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-secondary/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-sm font-medium text-accent uppercase tracking-wider mb-4">
-            Get in Touch
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Start Your Wholesale Partnership Today
-          </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Ready to stock premium nightwear and linens? Contact us for pricing, catalog, and partnership details.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
-          <div className="lg:col-span-2 space-y-8">
-            <div className="flex gap-4 p-4 bg-accent/10 rounded-xl border border-accent/20">
-              <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-accent font-bold text-sm">GST</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground mb-1">GSTN</h3>
-                <p className="text-muted-foreground text-sm font-mono">{gstn}</p>
-              </div>
-            </div>
-            {contactInfo.map((info) => (
-              <div key={info.title} className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
-                  <info.icon className="h-5 w-5 text-accent" />
+    <section id="contact" className="py-24 bg-background">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div>
+            <h2 className="text-4xl font-serif font-bold mb-6">Contact Us</h2>
+            <div className="space-y-8">
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-accent">
+                  <Phone size={24} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-2">{info.title}</h3>
-                  {info.details.map((detail) => (
-                    <p key={detail} className="text-muted-foreground text-sm">
-                      {detail}
-                    </p>
-                  ))}
+                  <p className="font-bold text-lg">Call/WhatsApp</p>
+                  <p className="text-muted-foreground">+91 7278104982</p>
+                  <p className="text-muted-foreground">+91 8777840679</p>
                 </div>
               </div>
-            ))}
-          </div>
-
-          <div className="lg:col-span-3">
-            <div className="bg-card rounded-2xl p-8 border border-border shadow-sm">
-              {isSubmitted ? (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-6">
-                    <Send className="h-8 w-8 text-accent" />
-                  </div>
-                  <h3 className="font-serif text-2xl font-bold text-foreground mb-3">
-                    Thank You!
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {"We've received your inquiry and will get back to you within 24 hours."}
-                  </p>
+              
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-accent">
+                  <Mail size={24} />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input
-                        id="name"
-                        placeholder="Your name"
-                        required
-                        className="bg-background"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="business">Business Name</Label>
-                      <Input
-                        id="business"
-                        placeholder="Your store/business name"
-                        required
-                        className="bg-background"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+91 XXXXX XXXXX"
-                        required
-                        className="bg-background"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your@email.com"
-                        required
-                        className="bg-background"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="city">City / Location</Label>
-                    <Input
-                      id="city"
-                      placeholder="Your city"
-                      required
-                      className="bg-background"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Tell us about your requirements - product categories, quantities, etc."
-                      rows={4}
-                      required
-                      className="bg-background resize-none"
-                    />
-                  </div>
-
-                  <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? "Sending..." : "Send Inquiry"}
-                  </Button>
-                </form>
-              )}
+                <div>
+                  <p className="font-bold text-lg">Email Us</p>
+                  <a href={`mailto:${MY_EMAIL}`} className="text-muted-foreground hover:text-accent transition-colors">
+                    {MY_EMAIL}
+                  </a>
+                </div>
+              </div>
             </div>
+          </div>
+          
+          <div className="bg-secondary/30 p-8 rounded-3xl border border-accent/10">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <input 
+                  type="text" placeholder="Full Name" required 
+                  className="p-3 rounded-xl border bg-background"
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                />
+                <input 
+                  type="text" placeholder="Business Name" 
+                  className="p-3 rounded-xl border bg-background"
+                  onChange={(e) => setFormData({...formData, business: e.target.value})}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <input 
+                  type="text" placeholder="Phone Number" required
+                  className="p-3 rounded-xl border bg-background"
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                />
+                <input 
+                  type="email" placeholder="Email Address"
+                  className="p-3 rounded-xl border bg-background"
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                />
+              </div>
+              <input 
+                type="text" placeholder="City / Location"
+                className="w-full p-3 rounded-xl border bg-background"
+                onChange={(e) => setFormData({...formData, city: e.target.value})}
+              />
+              <textarea 
+                placeholder="Message" rows={4}
+                className="w-full p-3 rounded-xl border bg-background"
+                onChange={(e) => setFormData({...formData, message: e.target.value})}
+              ></textarea>
+              
+              <button 
+                type="submit"
+                className="w-full bg-[#800000] text-white py-4 rounded-xl font-bold hover:bg-[#600000] transition-all flex items-center justify-center gap-2"
+              >
+                <Send size={20} /> Send Inquiry via WhatsApp
+              </button>
+            </form>
           </div>
         </div>
       </div>
