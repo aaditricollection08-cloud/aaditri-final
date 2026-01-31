@@ -18,20 +18,20 @@ export function ContactSection() {
       message: formData.get("message"),
     };
 
-    // ১. হোয়াটসঅ্যাপে তথ্য পাঠানো
-    const whatsappBody = `New Inquiry from Web:\nনাম: ${data.name}\nইমেইল: ${data.email}\nফোন: ${data.phone}\nশহর: ${data.city}\nমেসেজ: ${data.message}`;
+    // 1. Send data to WhatsApp
+    const whatsappBody = `New Inquiry from Web:\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nCity: ${data.city}\nMessage: ${data.message}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappBody)}`, "_blank");
 
-    // ২. অটোমেটিক ইমেইল পাঠানো (Formspree)
+    // 2. Send data to Email (Automatic via Formspree)
     try {
       await fetch("https://formspree.io/f/xvgzlowz", {
         method: "POST",
         body: JSON.stringify(data),
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
       });
-      alert("ধন্যবাদ! আপনার ইনকোয়ারি সফলভাবে পাঠানো হয়েছে।");
+      alert("Success! Your inquiry has been sent via WhatsApp and Email.");
     } catch (error) {
-      console.log("Error sending email");
+      console.log("Error sending inquiry");
     }
   };
 
@@ -39,14 +39,18 @@ export function ContactSection() {
     <section id="contact" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 text-left">
         <div>
-          <h2 className="text-3xl font-bold mb-6 italic">যোগাযোগ করুন</h2>
+          <h2 className="text-3xl font-bold mb-6 italic">Contact Us</h2>
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-accent"><Phone size={20}/></div>
+              <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-accent">
+                <Phone size={20}/>
+              </div>
               <span className="font-medium">+91 7278104982 / 8777840679</span>
             </div>
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-accent"><Mail size={20}/></div>
+              <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-accent">
+                <Mail size={20}/>
+              </div>
               <span className="font-medium">{MY_EMAIL}</span>
             </div>
           </div>
@@ -55,17 +59,17 @@ export function ContactSection() {
         <div className="bg-secondary/30 p-8 rounded-3xl border shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input name="name" type="text" placeholder="আপনার নাম (Full Name)" className="p-3 rounded-xl border bg-background w-full" required />
-              <input name="customer_email" type="email" placeholder="আপনার ইমেইল (Email ID)" className="p-3 rounded-xl border bg-background w-full" required />
+              <input name="name" type="text" placeholder="Full Name" className="p-3 rounded-xl border bg-background w-full" required />
+              <input name="customer_email" type="email" placeholder="Your Email ID" className="p-3 rounded-xl border bg-background w-full" required />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input name="phone" type="text" placeholder="ফোন নম্বর (Phone)" className="p-3 rounded-xl border bg-background w-full" required />
-              <input name="city" type="text" placeholder="শহর বা এলাকা (City)" className="p-3 rounded-xl border bg-background w-full" required />
+              <input name="phone" type="text" placeholder="Phone Number" className="p-3 rounded-xl border bg-background w-full" required />
+              <input name="city" type="text" placeholder="City / Location" className="p-3 rounded-xl border bg-background w-full" required />
             </div>
-            <textarea name="message" placeholder="আপনার প্রশ্ন বা কোন পণ্যটি কিনতে চান তা এখানে লিখুন..." className="w-full p-3 rounded-xl border bg-background" rows={4} required></textarea>
+            <textarea name="message" placeholder="Tell us about your requirements (product categories, quantities, etc.)" className="w-full p-3 rounded-xl border bg-background" rows={4} required></textarea>
             
             <button type="submit" className="w-full bg-[#800000] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#600000] transition-all">
-              <Send size={20} /> ইনকোয়ারি পাঠান (Send Inquiry)
+              <Send size={20} /> Send Inquiry Now
             </button>
           </form>
         </div>
