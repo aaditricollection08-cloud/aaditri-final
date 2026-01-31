@@ -12,9 +12,9 @@ const bedsheets = [
   { id: 7, name: "Oceanic Wave Texture", img: "/bedsheet-7.jpg", price: "250" },
   { id: 8, name: "Crimson Velvet Bloom", img: "/bedsheet-8.jpg", price: "250" },
   { id: 9, name: "Ivory Pearl Elegance", img: "/bedsheet-9.jpg", price: "250" },
-  { id: 10, name: "Sunset Glow Abstract", img: "/bedsheet-10.jpg", price: "250" },
-  { id: 11, name: "Turquoise Bliss", img: "/bedsheet-11.jpg", price: "250" },
-  { id: 12, name: "Peony Paradise", img: "/bedsheet-12.jpg", price: "250" },
+  { id: 10, name: "Sunset Glow Abstract", img: "/bedsheet-10.jpeg", price: "250" }, // JPEG format
+  { id: 11, name: "Turquoise Bliss", img: "/bedsheet-11.jpeg", price: "250" },      // JPEG format
+  { id: 12, name: "Peony Paradise", img: "/bedsheet-12.jpeg", price: "250" },        // JPEG format
   { id: 13, name: "Sapphire Night Star", img: "/bedsheet-13.jpeg", price: "250" },
   { id: 14, name: "Autumn Breeze Leaf", img: "/bedsheet-14.jpeg", price: "250" },
   { id: 15, name: "Marble Silk Touch", img: "/bedsheet-15.jpeg", price: "250" },
@@ -40,7 +40,13 @@ export function ProductsSection() {
           {bedsheets.map((p) => (
             <div key={p.id} className="group bg-background rounded-2xl overflow-hidden border shadow-sm hover:shadow-xl transition-all duration-300">
               <div className="aspect-[4/5] relative overflow-hidden">
-                <Image src={p.img} alt={p.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" unoptimized={true} />
+                <Image 
+                  src={p.img} 
+                  alt={p.name} 
+                  fill 
+                  className="object-cover transition-transform duration-500 group-hover:scale-110" 
+                  unoptimized={true} 
+                />
               </div>
               <div className="p-5">
                 <h3 className="text-lg font-bold text-foreground mb-1 leading-tight h-12">{p.name}</h3>
@@ -58,5 +64,3 @@ export function ProductsSection() {
         </div>
       </div>
     </section>
-  );
-}
