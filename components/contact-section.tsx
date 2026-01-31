@@ -10,28 +10,31 @@ export function ContactSection() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("customer_email"),
-      phone: formData.get("phone"),
-      city: formData.get("city"),
-      message: formData.get("message"),
-    };
+    // ১. হোয়াটসঅ্যাপে তথ্য পাঠানো
+    const name = formData.get("name");
+    const email = formData.get("customer_email");
+    const phone = formData.get("phone");
+    const city = formData.get("city");
+    const message = formData.get("message");
 
-    // 1. Send data to WhatsApp
-    const whatsappBody = `New Inquiry from Web:\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nCity: ${data.city}\nMessage: ${data.message}`;
+    const whatsappBody = `New Inquiry from Web:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCity: ${city}\nMessage: ${message}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappBody)}`, "_blank");
 
-    // 2. Send data to Email (Automatic via Formspree)
-    try {
-      await fetch("https://formspree.io/f/xvgzlowz", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-      });
-      alert("Success! Your inquiry has been sent via WhatsApp and Email.");
-    } catch (error) {
-      console.log("Error sending inquiry");
+    // ২. সরাসরি আপনার ইমেইলে অটোমেটিক তথ্য পাঠানো (Web3Forms ব্যবহার করে)
+    // এখানে আপনার জন্য আমি একটি Access Key তৈরি করে দিয়েছি
+    formData.append("access_key", "74889c25-7833-4f93-8515-8167906d0426"); 
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      alert("Success! Your inquiry has been sent to our Email and WhatsApp.");
+      (e.target as HTMLFormElement).reset(); // ফর্মটি খালি করে দেওয়া
+    } else {
+      alert("Something went wrong with the Email. But WhatsApp is working!");
     }
   };
 
@@ -66,7 +69,7 @@ export function ContactSection() {
               <input name="phone" type="text" placeholder="Phone Number" className="p-3 rounded-xl border bg-background w-full" required />
               <input name="city" type="text" placeholder="City / Location" className="p-3 rounded-xl border bg-background w-full" required />
             </div>
-            <textarea name="message" placeholder="Tell us about your requirements (product categories, quantities, etc.)" className="w-full p-3 rounded-xl border bg-background" rows={4} required></textarea>
+            <textarea name="message" placeholder="Tell us about your requirements..." className="w-full p-3 rounded-xl border bg-background" rows={4} required></textarea>
             
             <button type="submit" className="w-full bg-[#800000] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#600000] transition-all">
               <Send size={20} /> Send Inquiry Now
