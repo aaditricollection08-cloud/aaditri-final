@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 
+// আপনার WhatsApp নম্বর (এখানে আপনার নম্বরটি দিন)
+const WHATSAPP_NUMBER = "919007941018"; // আপনার নম্বরটি যদি অন্য হয়, শুধু এই ১০ ডিজিট বদলে দেবেন
+
 const bedsheets = [
   { id: 1, name: "Spring Meadow Tulip", img: "/bedsheet-1.jpg", price: "250" },
   { id: 2, name: "Midnight Galaxy Blue", img: "/bedsheet-2.jpg", price: "250" },
@@ -37,30 +40,35 @@ export function ProductsSection() {
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-serif font-bold mb-12 text-center text-foreground">Premium Collection</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {bedsheets.map((p) => (
-            <div key={p.id} className="group bg-background rounded-2xl overflow-hidden border shadow-sm hover:shadow-xl transition-all duration-300">
-              <div className="aspect-[4/5] relative overflow-hidden">
-                <Image 
-                  src={p.img} 
-                  alt={p.name} 
-                  fill 
-                  className="object-cover transition-transform duration-500 group-hover:scale-110" 
-                  unoptimized={true} 
-                />
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-foreground mb-1 leading-tight h-12">{p.name}</h3>
-                <p className="text-accent font-extrabold text-xl mb-3">₹{p.price}</p>
-                <div className="space-y-1.5 mb-5 text-sm text-muted-foreground border-t pt-3">
-                  <div className="flex justify-between"><span>Size:</span> <span className="text-foreground font-medium">{p.size}</span></div>
-                  <div className="flex justify-between"><span>Material:</span> <span className="text-foreground font-medium">{p.material}</span></div>
+          {bedsheets.map((p) => {
+            // WhatsApp মেসেজ তৈরি করা হচ্ছে
+            const message = encodeURIComponent(`Hello Aaditri Collection! I want to order:\n\nProduct: ${p.name}\nPrice: ₹${p.price}\nSize: ${p.size}\n\nPlease let me know the availability.`);
+            const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+
+            return (
+              <div key={p.id} className="group bg-background rounded-2xl overflow-hidden border shadow-sm hover:shadow-xl transition-all duration-300">
+                <div className="aspect-[4/5] relative overflow-hidden">
+                  <Image src={p.img} alt={p.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" unoptimized={true} />
                 </div>
-                <Link href="#contact" className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-xl font-bold hover:bg-accent transition-all text-center">
-                  <ShoppingCart size={18} className="inline-block mr-2" /> Order Now
-                </Link>
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-foreground mb-1 leading-tight h-12">{p.name}</h3>
+                  <p className="text-accent font-extrabold text-xl mb-3">₹{p.price}</p>
+                  <div className="space-y-1.5 mb-5 text-sm text-muted-foreground border-t pt-3">
+                    <div className="flex justify-between"><span>Size:</span> <span className="text-foreground font-medium">{p.size}</span></div>
+                    <div className="flex justify-between"><span>Material:</span> <span className="text-foreground font-medium">{p.material}</span></div>
+                  </div>
+                  <a 
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-xl font-bold hover:bg-[#128C7E] transition-all text-center"
+                  >
+                    <ShoppingCart size={18} /> Order on WhatsApp
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
