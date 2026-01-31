@@ -1,114 +1,63 @@
 "use client";
 
-import { useState } from "react";
-import { Phone, Mail, MessageCircle, Send } from "lucide-react";
+import { Phone, Mail, Send } from "lucide-react";
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: "",
-    business: "",
-    phone: "",
-    email: "",
-    city: "",
-    message: ""
-  });
-
   const WHATSAPP_NUMBER = "917278104982";
-  const MY_EMAIL = "aaditricollection0@gmail.com"; // আপনার ইমেইল এখানে দিন
+  const MY_EMAIL = "aaditricollection0@gmail.com";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     
-    // WhatsApp মেসেজ ফরম্যাট করা
-    const text = `*New Inquiry - Aaditri Collection*\n\n` +
-                 `*Name:* ${formData.name}\n` +
-                 `*Business:* ${formData.business}\n` +
-                 `*Phone:* ${formData.phone}\n` +
-                 `*Email:* ${formData.email}\n` +
-                 `*City:* ${formData.city}\n` +
-                 `*Message:* ${formData.message}`;
+    const name = (document.getElementById('full-name') as HTMLInputElement).value;
+    const phone = (document.getElementById('phone-number') as HTMLInputElement).value;
+    const city = (document.getElementById('city-loc') as HTMLInputElement).value;
+    const msg = (document.getElementById('msg-text') as HTMLTextAreaElement).value;
     
-    const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    const subject = `Inquiry from ${name}`;
+    const body = `Name: ${name}%0APhone: ${phone}%0ACity: ${city}%0AMessage: ${msg}`;
+
+    // ১. হোয়াটসঅ্যাপ মেসেজ পাঠানো
+    const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${body}`;
     window.open(whatsappLink, "_blank");
+
+    // ২. ইমেইল উইন্ডো খোলা
+    const mailtoLink = `mailto:${MY_EMAIL}?subject=${subject}&body=${body}`;
+    setTimeout(() => {
+      window.location.href = mailtoLink;
+    }, 1000);
   };
 
   return (
-    <section id="contact" className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <h2 className="text-4xl font-serif font-bold mb-6">Contact Us</h2>
-            <div className="space-y-8">
-              <div className="flex items-start gap-6">
-                <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-accent">
-                  <Phone size={24} />
-                </div>
-                <div>
-                  <p className="font-bold text-lg">Call/WhatsApp</p>
-                  <p className="text-muted-foreground">+91 7278104982</p>
-                  <p className="text-muted-foreground">+91 8777840679</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-6">
-                <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-accent">
-                  <Mail size={24} />
-                </div>
-                <div>
-                  <p className="font-bold text-lg">Email Us</p>
-                  <a href={`mailto:${MY_EMAIL}`} className="text-muted-foreground hover:text-accent transition-colors">
-                    {MY_EMAIL}
-                  </a>
-                </div>
-              </div>
+    <section id="contact" className="py-20 bg-background">
+      <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12">
+        <div>
+          <h2 className="text-3xl font-bold mb-6 italic">Contact Us</h2>
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-accent"><Phone size={20}/></div>
+              <span>+91 7278104982 / 8777840679</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-accent"><Mail size={20}/></div>
+              <span>{MY_EMAIL}</span>
             </div>
           </div>
-          
-          <div className="bg-secondary/30 p-8 rounded-3xl border border-accent/10">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <input 
-                  type="text" placeholder="Full Name" required 
-                  className="p-3 rounded-xl border bg-background"
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                />
-                <input 
-                  type="text" placeholder="Business Name" 
-                  className="p-3 rounded-xl border bg-background"
-                  onChange={(e) => setFormData({...formData, business: e.target.value})}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <input 
-                  type="text" placeholder="Phone Number" required
-                  className="p-3 rounded-xl border bg-background"
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                />
-                <input 
-                  type="email" placeholder="Email Address"
-                  className="p-3 rounded-xl border bg-background"
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                />
-              </div>
-              <input 
-                type="text" placeholder="City / Location"
-                className="w-full p-3 rounded-xl border bg-background"
-                onChange={(e) => setFormData({...formData, city: e.target.value})}
-              />
-              <textarea 
-                placeholder="Message" rows={4}
-                className="w-full p-3 rounded-xl border bg-background"
-                onChange={(e) => setFormData({...formData, message: e.target.value})}
-              ></textarea>
-              
-              <button 
-                type="submit"
-                className="w-full bg-[#800000] text-white py-4 rounded-xl font-bold hover:bg-[#600000] transition-all flex items-center justify-center gap-2"
-              >
-                <Send size={20} /> Send Inquiry via WhatsApp
-              </button>
-            </form>
-          </div>
+        </div>
+
+        <div className="bg-secondary/30 p-8 rounded-3xl border">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <input id="full-name" type="text" placeholder="Full Name" className="p-3 rounded-xl border bg-background" required />
+              <input id="phone-number" type="text" placeholder="Phone Number" className="p-3 rounded-xl border bg-background" required />
+            </div>
+            <input id="city-loc" type="text" placeholder="City / Location" className="w-full p-3 rounded-xl border bg-background" />
+            <textarea id="msg-text" placeholder="Tell us what you need..." className="w-full p-3 rounded-xl border bg-background" rows={4}></textarea>
+            
+            <button type="submit" className="w-full bg-[#800000] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#600000] transition-all">
+              <Send size={20} /> Send Inquiry Now
+            </button>
+          </form>
         </div>
       </div>
     </section>
