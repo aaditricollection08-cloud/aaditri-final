@@ -12,9 +12,9 @@ const bedsheets = [
   { id: 7, name: "Oceanic Wave Texture", img: "/bedsheet-7.jpg", price: "250" },
   { id: 8, name: "Crimson Velvet Bloom", img: "/bedsheet-8.jpg", price: "250" },
   { id: 9, name: "Ivory Pearl Elegance", img: "/bedsheet-9.jpg", price: "250" },
-  { id: 10, name: "Sunset Glow Abstract", img: "/bedsheet-10.jpeg", price: "250" }, // JPEG format
-  { id: 11, name: "Turquoise Bliss", img: "/bedsheet-11.jpeg", price: "250" },      // JPEG format
-  { id: 12, name: "Peony Paradise", img: "/bedsheet-12.jpeg", price: "250" },        // JPEG format
+  { id: 10, name: "Sunset Glow Abstract", img: "/bedsheet-10.jpeg", price: "250" },
+  { id: 11, name: "Turquoise Bliss", img: "/bedsheet-11.jpeg", price: "250" },
+  { id: 12, name: "Peony Paradise", img: "/bedsheet-12.jpeg", price: "250" },
   { id: 13, name: "Sapphire Night Star", img: "/bedsheet-13.jpeg", price: "250" },
   { id: 14, name: "Autumn Breeze Leaf", img: "/bedsheet-14.jpeg", price: "250" },
   { id: 15, name: "Marble Silk Touch", img: "/bedsheet-15.jpeg", price: "250" },
@@ -55,8 +55,8 @@ export function ProductsSection() {
                   <div className="flex justify-between"><span>Size:</span> <span className="text-foreground font-medium">{p.size}</span></div>
                   <div className="flex justify-between"><span>Material:</span> <span className="text-foreground font-medium">{p.material}</span></div>
                 </div>
-                <Link href="#contact" className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-xl font-bold hover:bg-accent transition-all">
-                  <ShoppingCart size={18} /> Order Now
+                <Link href="#contact" className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-xl font-bold hover:bg-accent transition-all text-center">
+                  <ShoppingCart size={18} className="inline-block mr-2" /> Order Now
                 </Link>
               </div>
             </div>
@@ -64,3 +64,5 @@ export function ProductsSection() {
         </div>
       </div>
     </section>
+  );
+}
