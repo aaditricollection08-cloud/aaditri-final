@@ -66,7 +66,7 @@ export function HeroSection() {
             </div>
             <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-lg border border-border">
               <p className="text-sm text-muted-foreground">Starting from</p>
-              <p className="text-2xl font-serif font-bold text-foreground">₹150/piece</p>
+              <p className="text-2xl font-serif font-bold text-foreground">₹160/piece</p>
               <p className="text-xs text-muted-foreground">Minimum 25 pieces</p>
             </div>
           </div>
