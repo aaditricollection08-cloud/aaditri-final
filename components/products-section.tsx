@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ShoppingCart, X } from "lucide-react";
+import { MessageCircle, X, ZoomIn, Info } from "lucide-react";
 
 const WHATSAPP_NUMBER = "917278104982";
 
@@ -34,45 +34,45 @@ export function ProductsSection() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   return (
-    <section id="products" className="py-20 bg-secondary/50">
+    <section id="products" className="py-20 bg-secondary/30">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-4xl font-serif font-bold mb-4 text-center">Premium Collection</h2>
-        <p className="text-center text-muted-foreground mb-12 italic">Bedsheets from ₹250 & Nighties from ₹160</p>
+        <h2 className="text-4xl font-serif font-bold mb-4 text-center">Bedsheet Collection</h2>
+        <p className="text-center text-muted-foreground mb-12 italic">Wholesale Only | Min. Order: 25 Pcs per design</p>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 text-left">
           {bedsheets.map((p) => {
-            const message = encodeURIComponent(`Hello Aaditri Collection! I want to order:\n\nProduct: ${p.name}\nPrice: ₹${p.price}`);
+            const message = encodeURIComponent(`Hello Aaditri Collection! I'm interested in wholesale inquiry for:\n\nProduct: ${p.name}\nWholesale Price: ₹${p.price}\nNote: I understand the MOQ is 25 pieces.`);
             const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
 
             return (
-              <div key={p.id} className="bg-background rounded-2xl overflow-hidden border shadow-sm p-4">
-                {/* ছবিতে ক্লিক করলে বড় হবে */}
+              <div key={p.id} className="bg-background rounded-3xl overflow-hidden border shadow-sm hover:shadow-lg transition-all p-4">
                 <div 
-                  className="aspect-[4/5] relative mb-4 cursor-zoom-in group"
+                  className="aspect-[4/5] relative mb-4 cursor-zoom-in group overflow-hidden rounded-2xl"
                   onClick={() => setSelectedImg(p.img)}
                 >
-                  <Image 
-                    src={p.img} 
-                    alt={p.name} 
-                    fill 
-                    className="object-cover rounded-xl transition-transform group-hover:scale-105" 
-                    unoptimized={true} 
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-xl flex items-center justify-center">
-                    <span className="text-white bg-black/50 px-3 py-1 rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity">Click to View</span>
+                  <Image src={p.img} alt={p.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" unoptimized={true} />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="bg-white/90 text-black px-4 py-2 rounded-full flex items-center gap-2 font-medium shadow-lg">
+                      <ZoomIn size={18} /> Click to View
+                    </div>
                   </div>
                 </div>
 
                 <h3 className="font-bold text-lg mb-1 h-12 overflow-hidden">{p.name}</h3>
-                <p className="text-[#e11d48] font-bold text-xl mb-4">₹{p.price}</p>
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-[#800000] font-bold text-xl">₹{p.price}</p>
+                  <span className="text-[10px] font-bold bg-[#800000]/10 text-[#800000] px-2 py-1 rounded uppercase flex items-center gap-1">
+                    <Info size={10} /> MOQ: 25 Pcs
+                  </span>
+                </div>
                 
                 <a 
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-xl font-bold hover:bg-[#128C7E] transition-colors"
+                  className="w-full flex items-center justify-center gap-2 bg-[#075E54] text-white py-3 rounded-xl font-bold hover:bg-[#054a42] transition-colors"
                 >
-                  <ShoppingCart size={18} /> WhatsApp Order
+                  <MessageCircle size={18} /> Wholesale Inquiry
                 </a>
               </div>
             );
@@ -80,24 +80,11 @@ export function ProductsSection() {
         </div>
       </div>
 
-      {/* ফুল স্ক্রিন ছবি দেখার উইন্ডো (Modal) */}
       {selectedImg && (
-        <div 
-          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm"
-          onClick={() => setSelectedImg(null)}
-        >
-          <button 
-            className="absolute top-6 right-6 text-white bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors"
-            onClick={() => setSelectedImg(null)}
-          >
-            <X size={32} />
-          </button>
-          <div className="relative w-full max-w-3xl aspect-[4/5] md:aspect-auto md:h-[90vh]">
-            <img 
-              src={selectedImg} 
-              alt="Zoomed product" 
-              className="w-full h-full object-contain shadow-2xl"
-            />
+        <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setSelectedImg(null)}>
+          <button className="absolute top-6 right-6 text-white p-2 hover:bg-white/10 rounded-full transition-colors"><X size={32} /></button>
+          <div className="relative w-full max-w-3xl h-[85vh]">
+            <img src={selectedImg} alt="Zoomed product" className="w-full h-full object-contain" />
           </div>
         </div>
       )}
