@@ -39,7 +39,7 @@ export function ProductsSection() {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-serif font-bold mb-4">Bedsheet Collection</h2>
           <div className="inline-flex items-center gap-2 bg-[#800000] text-white px-6 py-2 rounded-full text-sm font-bold shadow-md">
-            <ShoppingBag size={16} /> Minimum Order: 25 Pcs (Mix & Match)
+            <ShoppingBag size={16} /> Minimum Order: 25 Pcs
           </div>
           <p className="text-muted-foreground mt-4 italic">Glace Cotton | Queen Size (90×108 inch)</p>
         </div>
