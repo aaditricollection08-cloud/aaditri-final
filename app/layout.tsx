@@ -2,6 +2,7 @@ import React from "react"
 import type { Metadata } from 'next'
 import { Inter, Outfit } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from "@vercel/speed-insights/next" // নতুন যোগ করা হলো
 import './globals.css'
 
 const _inter = Inter({ subsets: ["latin"] });
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}>
         {children}
         <Analytics />
+        <SpeedInsights /> {/* আপনার Vercel ড্যাশবোর্ডের ইনস্ট্রাকশন অনুযায়ী */}
       </body>
     </html>
   )
